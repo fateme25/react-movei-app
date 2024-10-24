@@ -7,7 +7,8 @@ function Home() {
     return (
         <>
             {/* The topbar component goes here */}
-            <TopBar />
+            <TopBar
+            home={true} />
 
             {/* The banner component goes here */}
             <Banner />
