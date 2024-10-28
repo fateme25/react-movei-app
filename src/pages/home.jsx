@@ -1,25 +1,29 @@
 import TopBar from "../components/navbars/topBar"
 import Footer from "../components/footer"
-import Banner from "../modules/home/banner/banner"
+import Banner from "../components/banner"
 
 function Home() {
 
     return (
         <>
-            {/* The topbar component goes here */}
-            <TopBar />
+            <div className="relative">
+                {/* The topbar component goes here */}
+                <TopBar
+                home={true} />
 
-            {/* The banner component goes here */}
-            <Banner />
+                {/* The banner component goes here */}
+                <Banner />
 
-            {/* The coming soon component goes here */}
+                {/* The coming soon component goes here */}
 
-            {/* The opening this week component goes here */}
+                {/* The opening this week component goes here */}
 
-            {/* The in theather component goes here */}
+                {/* The in theather component goes here */}
 
-            {/* The footer component goes here */}
-            <Footer />
+                {/* The footer component goes here */}
+                <Footer />
+
+            </div>
         </>
     )
 }
