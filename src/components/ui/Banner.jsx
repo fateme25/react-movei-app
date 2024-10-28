@@ -59,7 +59,7 @@ function Banner() {
                                 </span>
                             </div>
 
-                            <div className="watch_button bg-gradient-to-r from-pink-500 to-orange-500 w-fit py-2 px-3 rounded-lg cursor-pointer" onClick={handleClick}>
+                            <div className="watch_button bg-gradient-to-r from-pink-500 to-orange-500 w-fit py-2 px-3 rounded-3xl cursor-pointer" onClick={handleClick}>
                                 <span>WATCH TRAILER </span> 
                                 <FontAwesomeIcon icon={faCirclePlay} />
                             </div>
