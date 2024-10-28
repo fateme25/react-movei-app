@@ -3,13 +3,26 @@ import MaskGroup from '../../assets/MaskGroup.png'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { useEffect, useState } from 'react'
 
 
 function TopBar({home}) {
+    const [scrollVal, setScrollVal] = useState(0)
+
+
+    //Determine the scroll value for conditional styling
+    useEffect(()=> {
+        const handleScrollValue = () => {
+            setScrollVal(window.scrollY)
+        }
+        window.addEventListener('scroll', handleScrollValue)
+
+        return () => window.removeEventListener('scroll', handleScrollValue);
+    }, [])
 
     return (
         <>
-            <header className={`${home && "absolute bg-transparent z-10 w-full"} p-5 bg-slate-900`}>
+            <header className={`${home && scrollVal < 30 ?  "absolute bg-transparent w-full" : "sticky top-0 bg-slate-900"} z-10 p-5`}>
                 <div className='container mx-auto flex justify-between items-center space-between'>
 
                     <div className="brand flex">
