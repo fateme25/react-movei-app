@@ -22,7 +22,7 @@ function TopBar({home}) {
 
     return (
         <>
-            <header className={`${home && scrollVal < 30 ?  "absolute bg-transparent w-full" : "sticky top-0 bg-slate-900"} z-10 p-5`}>
+            <header className={`${home && scrollVal < 1 ?  "bg-transparent" : "bg-slate-900"} z-10 p-5 fixed w-full`}>
                 <div className='container mx-auto flex justify-between items-center space-between'>
 
                     <div className="brand flex">
