@@ -1,4 +1,4 @@
-import CinemaFilmPlay from '../assets/CinemaFilmPlay.png'
+import CinemaFilmPlay from '../../assets/CinemaFilmPlay.png'
 import { Link } from 'react-router-dom'
 
 
