@@ -1,5 +1,5 @@
-import TopBar from "../../../components/navbars/topBar";
-import banner from '../../../assets/banner.png'
+import TopBar from "./navbars/topBar";
+import banner from '../assets/banner.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faCirclePlay } from "@fortawesome/free-regular-svg-icons";

@@ -1,6 +1,6 @@
 import TopBar from "../components/navbars/topBar"
 import Footer from "../components/footer"
-import Banner from "../modules/home/banner/banner"
+import Banner from "../components/banner"
 
 function Home() {
 
