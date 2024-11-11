@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player/youtube";
 import leftArrow from "../../assets/LeftArrow.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight, faClock } from "@fortawesome/free-solid-svg-icons";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/navigation";
@@ -10,28 +10,49 @@ import "swiper/css";
 import { Navigation } from "swiper/modules";
 
 import "./theatherInfo.css";
+import { useTrailer } from "./useTrailer";
+import Heading from "../ui/Heading";
 
 function TheaterInfo() {
+  const [selectedMovieId, setSelectedMovieId] = useState();
+  const {
+    trailers,
+    isLoadingTrailers,
+    selectedMovieDetails,
+    isLoadingDetails,
+  } = useTrailer(selectedMovieId);
+
+  //set default select movie id (first movie slider)
+  useEffect(() => {
+    if (!isLoadingTrailers && trailers.results.length > 0) {
+      setSelectedMovieId(trailers.results[0].id);
+    }
+  }, [isLoadingTrailers, trailers]);
+
+  function handleMovieInfo(i) {
+    const movieId = trailers.results[i].id;
+    setSelectedMovieId(movieId);
+  }
+
+  let video = selectedMovieDetails?.videos.results.filter(
+    (movie) => movie.type === "Trailer"
+  );
+
+  // console.log(selectedMovieDetails);
   return (
     <>
-      <div className="flex justify-between items-center py-6">
-        <h2 className="py-4 text-3xl font-bold text-color-light-1">
-          IN THEATER
-        </h2>
-        <h4 className="text-color-brand-1">
-          View All <FontAwesomeIcon icon={faAngleRight} />
-        </h4>
-      </div>
+      <Heading>IN THEATER</Heading>
       {/* grid grid-cols-[600px_minmax(200px,1fr)_300px] gap-8 */}
       {/* grid-cols-[600px_400px_minmax(200px,1fr)] */}
 
       <div class="grid md:grid-cols-2 sm:grid-col-1 gap-10">
         <div>
           <p className="text-color-grey-1 font-light text-3xl py-6">
-            WONDER WOMAN - Official Trailer [HD]
+            {selectedMovieDetails?.original_title} - Official Trailer [HD]
           </p>
-
-          <ReactPlayer url="https://www.youtube.com/watch?v=1Q8fG0TtVAY" />
+          <ReactPlayer
+            url={`https://www.youtube.com/watch?v=${video?.[0].key}`}
+          />
         </div>
         <div className="grid grid-cols-2 gap-10">
           <div>
@@ -47,45 +68,24 @@ function TheaterInfo() {
                 modules={[Navigation]}
                 className="trailers bg-[#171414]"
               >
-                <SwiperSlide>
-                  <img src="" alt="" className="cast_image" />
-                  <div>
-                    <h3 className="text-color-light-1">Name</h3>
-                    <h3 className="text-color-grey-2">Actor</h3>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  {" "}
-                  <img src="" alt="" className="cast_image" />
-                  <div>
-                    <h3 className="text-color-light-1">Name</h3>
-                    <h3 className="text-color-grey-2">Actor</h3>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  {" "}
-                  <img src="" alt="" className="cast_image" />
-                  <div>
-                    <h3 className="text-color-light-1">Name</h3>
-                    <h3 className="text-color-grey-2">Actor</h3>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  {" "}
-                  <img src="" alt="" className="cast_image" />
-                  <div>
-                    <p className="text-color-light-1">text</p>
-                    <p className="text-color-grey-2">2:15</p>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                  {" "}
-                  <img src="" alt="" className="cast_image" />
-                  <div>
-                    <h3 className="text-color-light-1">Name</h3>
-                    <h3 className="text-color-grey-2">Actor</h3>
-                  </div>
-                </SwiperSlide>
+                {selectedMovieDetails &&
+                  selectedMovieDetails.credits.cast.map((people) => (
+                    <SwiperSlide>
+                      <img
+                        src={`https://image.tmdb.org/t/p/original${people.profile_path}`}
+                        alt={people.original_name}
+                        className="cast_image "
+                      />
+                      <div className="px-2">
+                        <h3 className="text-color-light-1 w-[220px]">
+                          {people.original_name}
+                        </h3>
+                        <h3 className="text-color-grey-2">
+                          {people.character}
+                        </h3>
+                      </div>
+                    </SwiperSlide>
+                  ))}
               </Swiper>
             </p>
           </div>
@@ -100,49 +100,23 @@ function TheaterInfo() {
               pagination={{
                 clickable: true,
               }}
-              navigation={true} // فعال کردن ناوبری
+              navigation={true}
               modules={[Navigation]}
-              className="trailers bg-color-dark-blue mt-5 rounded-sm"
+              className="trailers bg-color-dark-blue mt-5 rounded-sm cursor-pointer"
             >
-              <SwiperSlide>
-                <img src="" alt="" className="trailers_image" />
-                <div>
-                  <p className="text-color-light-1">text</p>
-                  <p className="text-color-grey-2">2:15</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                {" "}
-                <img src="" alt="" className="trailers_image" />
-                <div>
-                  <p className="text-color-light-1">text</p>
-                  <p className="text-color-grey-2">2:15</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                {" "}
-                <img src="" alt="" className="trailers_image" />
-                <div>
-                  <p className="text-color-light-1">text</p>
-                  <p className="text-color-grey-2">2:15</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                {" "}
-                <img src="" alt="" className="trailers_image" />
-                <div>
-                  <p className="text-color-light-1">text</p>
-                  <p className="text-color-grey-2">2:15</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                {" "}
-                <img src="" alt="" className="trailers_image" />
-                <div>
-                  <p className="text-color-light-1">text</p>
-                  <p className="text-color-grey-2">2:15</p>
-                </div>
-              </SwiperSlide>
+              {trailers?.results.map((trailer, i) => (
+                <SwiperSlide key={i} onClick={() => handleMovieInfo(i)}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/original${trailer.poster_path}`}
+                    alt=""
+                    className="trailers_image"
+                  />
+                  <div className="w-[180px] px-5">
+                    <p className="text-color-light-1 px-2">{trailer.title}</p>
+                    <p className="text-color-grey-2">2:15</p>
+                  </div>
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
         </div>
