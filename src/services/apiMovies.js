@@ -75,12 +75,10 @@ export async function getMovieDetails(movieId) {
     const data = await response.json();
     // console.log(data)
     return data;
-
   } catch (error) {
     console.error("movies Detail couldn't loaded", error);
   }
 }
-
 
 // get trending movie for (banner section)
 export async function getMovieTrending() {
@@ -98,5 +96,44 @@ export async function getMovieTrending() {
     return data;
   } catch (error) {
     console.error("Trending movie couldn't loaded", error);
+  }
+}
+
+// display searched movies
+export async function getSearchMovies(query) {
+  try {
+    // Fetch the initial search results
+    const response = await fetch(
+      `${API_URL}/search/movie?query=${query}&include_adult=false&language=en-US`,
+      config
+    );
+
+    if (!response.ok) {
+      throw new Error("API did not respond correctly");
+    }
+
+    const data = await response.json();
+
+    if (data.results) {
+      // Fetch runtime for each movie
+      const moviesWithRuntime = await Promise.all(
+        data.results.map(async (movie) => {
+          const runtimeResponse = await fetch(
+            `${API_URL}/movie/${movie.id}&language=en-US`,
+            config
+          );
+
+          const movieDetails = await runtimeResponse.json();
+          return {
+            ...movie,
+            runtime: movieDetails.runtime, // Add runtime to the movie object
+          };
+        })
+      );
+
+      return moviesWithRuntime; // Return movies with runtime
+    }
+  } catch (error) {
+    console.error("Movies couldn't be loaded:", error);
   }
 }
