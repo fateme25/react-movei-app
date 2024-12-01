@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import CinemaFilmPlay from "../../assets/CinemaFilmPlay.png";
-import MaskGroup from "../../assets/MaskGroup.png";
-// import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { signOutUser } from "../../features/Authentication/auth";
+import {
+  faMagnifyingGlass,
+  faSquarePlus,
+  faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 function TopBar({ home }) {
   const [scrollVal, setScrollVal] = useState(0);
@@ -26,6 +29,9 @@ function TopBar({ home }) {
     e.preventDefault();
     navigate(`/search?q=${encodeURIComponent(query)}`);
   };
+
+  const { currentUser } = useAuth();
+  // console.log(currentUser);
 
   return (
     <>
@@ -59,9 +65,55 @@ function TopBar({ home }) {
             </div>
           </div>
 
-          <div className="profile flex items-center gap-6 ">
-            <div className="img_cont h-12">
-              <img src={MaskGroup} className="w-full h-full" />
+          <div className="profile flex items-center gap-6 text-color-light-1 font-bold text-lg">
+            <div className="space-x-2">
+              <FontAwesomeIcon icon={faSquarePlus} fontSize={25} />
+              <Link to="">WatchList</Link>
+            </div>
+            <div className="img_cont">
+              {currentUser ? (
+                <div className="flex items-center space-x-2">
+                  <div className="dropdown dropdown-end">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      className="btn btn-ghost rounded-btn"
+                    >
+                      <FontAwesomeIcon icon={faUserCircle} fontSize={25} />
+                      <p className="text-lg">
+                        {currentUser.email.substring(0, 6)}
+                      </p>
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="menu dropdown-content bg-base-100 rounded-box z-[1] mt-4 w-52 px-2 leading-7 pt-4 shadow "
+                    >
+                      <li className="font-medium truncate border-b border-b-zinc-500">
+                        {currentUser.email}
+                        <small className="-mt-2 text-color-grey-2">
+                          View Profile
+                        </small>
+                      </li>
+                      <li className="">
+                        <a>Your WatchList</a>
+                      </li>
+                      <li className="border-b border-b-zinc-500">
+                        <a href="">Your Rating</a>
+                      </li>
+                      <li>
+                        <a href="">Settings</a>
+                      </li>
+                      <li>
+                        <a href="" onClick={() => signOutUser()}>
+                          Sign out
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              ) : (
+                <Link to="/login">Sign In</Link>
+              )}
             </div>
           </div>
         </div>
