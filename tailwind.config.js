@@ -18,7 +18,12 @@ export default {
       fontFamily: {
         inter: ["Inter", "sans - serif"],
       },
+
+      screens: {
+        sm: "300px",
+        md: "640px",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };
