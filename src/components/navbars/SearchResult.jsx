@@ -5,13 +5,14 @@ import { useMovie } from "./useMovie";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
-import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPlus, faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
 
 import { convertMinsToTime, formattedDate } from "../../utils/helper";
 import StarRating from "../ui/StarRating";
 import Loader from "../ui/Loader";
 import Modal from "../ui/Modal";
 import "../../styles/index.css";
+import useWatchlist from "../../hooks/useWatchList";
 
 function SearchResult() {
   const { movieId } = useParams();
@@ -21,17 +22,18 @@ function SearchResult() {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  const { handleAddToWatchlist, handleRemoveFromWatchlist, watchlistStatus } =
+    useWatchlist(movie);
+
   return (
-    <div className="container mx-auto text-color-light-1">
+    <div className="md:container sm:w-full mx-auto text-color-light-1 pb-9">
       {isLoading && <Loader />}
       {!isLoading && movie && (
         <>
           {/* Title */}
-          <div className="flex flex-col lg:flex-row justify-between items-start pt-10 mb-8">
+          <div className="flex justify-between items-start pt-10 mb-8">
             <div className="movie__title">
-              <h2 className="text-3xl sm:text-xl lg:text-3xl">
-                {movie.title}
-              </h2>
+              <h2 className="sm:text-xl lg:text-4xl font-bold">{movie.title}</h2>
               <p className="mt-2 text-sm sm:text-base">{`${formattedDate(
                 movie.release_date
               )} . ${convertMinsToTime(movie.runtime)}`}</p>
@@ -62,23 +64,23 @@ function SearchResult() {
             </div>
           </div>
           {/* Content */}
-          <div className="grid grid-cols-3  ">
-            <div className="item1  md:col-start-1 md:col-span-1 md:row-start-1 sm:col-span-1 sm:row-start-2 mt-9">
+          <div className="grid grid-cols-3">
+            <div className="item1 md:col-start-1 md:col-span-1 md:row-start-1 sm:col-span-1 sm:row-start-2 sm:pt-8 md:pt-0">
               <img
                 src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
                 alt={movie.title}
-                className="sm:w-[200px]"
+                className="md:w-[270px] sm:w-[200px] aspect-auto"
               />
             </div>
-            <div className="item2 bg-red-500 md:-ml-36 md:col-start-2 md:col-span-3 sm:col-span-3">
+            <div className="item2 md:-ml-36 md:col-start-2 md:col-span-3 sm:col-span-3">
               <ReactPlayer
                 url={`https://www.youtube.com/watch?v=${movie?.videos?.results[0]?.key}`}
                 width="100%"
                 height="100%"
-                className="order-1 lg:order-2 aspect-[16/9] md:aspect-auto md:w-full md:h-[230px]"
+                className="order-1 lg:order-2 aspect-video md:aspect-auto md:w-full md:h-[230px]"
               />
             </div>
-            <div className="item3  mt-12 md:col-start-1 md:col-span-3 sm:col-start-1 sm:col-span-2  sm:row-start-2  mb-10">
+            <div className="item3 mt-12 md:col-start-1 md:col-span-3 sm:col-start-2 sm:col-span-2  sm:row-start-2 mb-5 pl-2 ">
               <p className="gap-4 mb-6">
                 {movie.genres.map((genre) => (
                   <span
@@ -90,12 +92,19 @@ function SearchResult() {
                 ))}
               </p>
               {/* Overview */}
-              <p className=" text-color-grey-3 text-sm md:text-base leading-7 mb-6 h-[120px] overflow-hidden">
+              <p className=" text-color-grey-3 text-sm md:text-base leading-7 mb-10 md:h-full sm:h-[140px] overflow-hidden">
+                <h2 className="text-color-light-1 font-bold text-3xl pb-5">
+                  Overview
+                </h2>
                 {movie.overview}
               </p>
+            </div>
+          </div>
+          {/* Crew */}
 
-              {/* Crew */}
-              <ul className="crew text-sm md:text-base md:pt-6 md:leading-10">
+          <div className="flex justify-between md:flex-nowrap sm:flex-wrap sm:gap-5 sm:pt-6">
+            <div className="sm:basis-full">
+              <ul className="crew text-sm md:text-base md:mt-2 md:leading-10">
                 {movie?.credits.crew?.slice(0, 2).map((person) => (
                   <li key={person.id}>
                     <span className="font-bold text-color-grey-2">
@@ -116,73 +125,41 @@ function SearchResult() {
                 </li>
               </ul>
             </div>
-          </div>
 
+            <div className="bg-color-brand-2 text-2xl text-color-light-1 md:w-96 h-16 rounded-full flex justify-center items-center sm:w-full cursor-pointer">
+              <div className="pr-5">
+                {watchlistStatus[movie.id] ? (
+                  <FontAwesomeIcon
+                    icon={faCheck}
+                    fontSize="25px"
+                    onClick={() => handleRemoveFromWatchlist(movie)}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faPlus}
+                    fontSize="26px"
+                    onClick={() => handleAddToWatchlist(movie)}
+                  />
+                )}
+              </div>
+              <span>
+                {watchlistStatus[movie.id]
+                  ? "In watchlist"
+                  : "Add to watchlist"}
+              </span>
+            </div>
+          </div>
           {/* Modal */}
           <Modal isOpen={isModalOpen} onClose={closeModal}>
             <h3 className="font-bold text-lg">Rate the Movie</h3>
-            <StarRating />
+            <StarRating onClose={closeModal} />
           </Modal>
         </>
       )}
     </div>
   );
-
-
-  {
-    /*       <div className="container mx-auto text-color-light-1">
-            <div className="grid grid-cols-1 lg:grid-cols-[350px_minmax(500px,_1fr)] gap-4 sm:m-auto">
-              <ReactPlayer
-                url={`https://www.youtube.com/watch?v=${movie?.videos?.results[0]?.key}`}
-                width="100%"
-                height="100%"
-                className="order-1 lg:order-2 aspect-[16/9] md:aspect-auto md:w-full md:h-[230px]"
-              />
-
-
-              <img
-                src={`https://image.tmdb.org/t/p/original/${movie?.poster_path}`}
-                alt={movie.title}
-                className="w-full order-2 lg:order-1 lg:w-[300px]"
-              />
-            </div>
-
-            <div className="col-span-4 md:col-span-3 sm:col-span-5 mt-10">
-              <p className="flex flex-wrap gap-4 mb-6">
-                {movie.genres.map((genre) => (
-                  <span
-                    key={genre.id}
-                    className="border-2 border-color-grey-2 rounded-full px-4 py-2 text-sm sm:text-base"
-                  >
-                    {genre.name}
-                  </span>
-                ))}
-              </p>
-
-
-              <p className="text-justify text-color-grey-3 text-base sm:text-lg leading-7 mb-6">
-                {movie.overview}
-              </p>
-
-              <ul className="crew text-xl pt-6 leading-10">
-                {movie?.credits.crew?.slice(0, 2).map((person) => (
-                  <li key={person.id}>
-                    <span className="font-bold text-color-grey-2">
-                      {person.department}:
-                    </span>{" "}
-                    {person.name}
-                  </li>
-                ))}
-              </ul>
-
-              <ul className="cast flex items-center text-xl space-x-3">
-                <span className="font-bold text-color-grey-2">Stars:</span>
-                {movie?.credits.cast.slice(0, 4).map((person) => (
-                  <li key={person.id}>{person.name}</li>
-                ))}
-              </ul>
-              */
-  }
 }
-
+{
+  /* grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 sm:gap-5 lg:gap-[40rem]*/
+} 
 export default SearchResult;

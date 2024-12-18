@@ -1,4 +1,19 @@
-function StarRating() {
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
+function StarRating({onClose}) {
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+
+  function handleRating() {
+    if (!currentUser.isAnonymous) {
+      onClose();
+    } else {
+      toast.error("Pleas sign in first");
+      navigate("/register");
+    }
+  }
   return (
     <>
       <div className="rating rating-lg py-6">
@@ -13,7 +28,13 @@ function StarRating() {
         ))}
       </div>
       <div>
-        <button className="text-xl font-bold bg-color-dark-blue w-full rounded-full py-2">Rate</button>
+        <button
+          className="text-xl font-bold bg-color-dark-blue w-full rounded-full py-2"
+          disabled={!currentUser?.isAnonymous}
+          onClick={handleRating}
+        >
+          Rate
+        </button>
       </div>
     </>
   );

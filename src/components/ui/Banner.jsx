@@ -7,6 +7,7 @@ import { genreMovies } from "../../utils/genres";
 
 function Banner() {
   const [trendingMovies, setTrendingMovies] = useState([]);
+  console.log(trendingMovies[0]?.backdrop_path);
 
   //it will memoize fetchData
   const fetchData = useCallback(async () => {
@@ -28,20 +29,20 @@ function Banner() {
   return (
     <>
       {trendingMovies.length > 0 && (
-        <div className="banner h-screen relative">
+        <div className="banner h-screen relative -mb-10">
           {/* The background image and overlay */}
           <div className="absolute w-full h-full -z-50 ">
-            <div className="overlay absolute w-full h-full top-0 left-0 bg-black/50"></div>
+            <div className="overlay absolute w-full h-full top-0 left-0 "></div>
             <img
-              src={`https://image.tmdb.org/t/p/original${trendingMovies[0].backdrop_path}`}
-              className="object-cover w-full h-full -z-10"
+              src={`https://image.tmdb.org/t/p/original/${trendingMovies[0]?.backdrop_path}`}
+              className="object-cover w-full h-full"
             />
           </div>
 
           {/* The movie infos */}
-          <div className="container mx-auto -z-30">
-            <div className="overhead_info text-white inline-flex flex-col gap-0 w-[30em] mt-[18%]">
-              <h1 className="text-6xl font-bold text-color-brand-2 font-inter">
+          <div className="sm:w-[90%]  mx-auto z-30">
+            <div className="md:w-[35%] sm:w-[80%] overhead_info text-white inline-flex flex-col gap-0  mt-[18%]">
+              <h1 className="text-6xl font-bold text-color-brand-2 font-inter mt-10">
                 {trendingMovies[0].title}
               </h1>
               <div className="sub_info flex flex-col gap-5">
@@ -57,14 +58,14 @@ function Banner() {
                       .join(" .  ")}
                   </span>
                 </div>
-                <p className="text-color-light-2 font-inter font-[18px] leading-7 text-justify">
+                <p className=" text-color-light-2 font-inter font-[18px] leading-7 text-justify">
                   {trendingMovies[0].overview}
                 </p>
 
-                <div className="rating">
+                <div className="rating mt-8">
                   <span>
                     <span className="font-bold text-xl">
-                      {trendingMovies[0].vote_average}
+                      {trendingMovies[0].vote_average.toFixed(1)}
                     </span>{" "}
                     / <span className="text-color-grey-3">10 </span>
                   </span>

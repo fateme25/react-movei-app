@@ -34,28 +34,37 @@ function TheaterInfo() {
     setSelectedMovieId(movieId);
   }
 
-  let video = selectedMovieDetails?.videos.results.filter(
+  let videos = selectedMovieDetails?.videos.results.filter(
     (movie) => movie.type === "Trailer"
   );
 
+  console.log(videos)
+
   // console.log(selectedMovieDetails);
   return (
-    <>
+    <div className="md:container sm:w-[90%] mx-auto">
       <Heading>IN THEATER</Heading>
       {/* grid grid-cols-[600px_minmax(200px,1fr)_300px] gap-8 */}
       {/* grid-cols-[600px_400px_minmax(200px,1fr)] */}
 
-      <div class="grid md:grid-cols-2 sm:grid-col-1 gap-10">
-        <div>
-          <p className="text-color-grey-1 font-light text-3xl py-6">
+      <div class="grid md:grid-cols-2 sm:grid-col-1 gap-10 py-10">
+        <div className="sm:ml-5">
+          <p className="text-color-grey-1 font-light md:text-3xl sm:text-lg py-6">
             {selectedMovieDetails?.original_title} - Official Trailer [HD]
           </p>
-          <ReactPlayer
-            url={`https://www.youtube.com/watch?v=${video?.[0].key}`}
-          />
+          <div className="relative w-full pt-[56.25%]">
+            <div className="absolute top-0 left-0 w-full h-full">
+              <ReactPlayer
+                url={`https://www.youtube.com/watch?v=${videos?.[0].key}`}
+                width="100%"
+                height="100%"
+                className="react-player"
+              />
+            </div>
+          </div>
         </div>
-        <div className="grid grid-cols-2 gap-10">
-          <div>
+        <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-10 ">
+          <div className="">
             <p className="text-color-light-1 font-bold text-[26px] tracking-wide">
               SPOTLIGHT CASTS
               <Swiper
@@ -66,15 +75,15 @@ function TheaterInfo() {
                   clickable: true,
                 }}
                 modules={[Navigation]}
-                className="trailers bg-[#171414]"
+                className="trailers "
               >
                 {selectedMovieDetails &&
                   selectedMovieDetails.credits.cast.map((people) => (
-                    <SwiperSlide>
+                    <SwiperSlide key={people.id}>
                       <img
                         src={`https://image.tmdb.org/t/p/original${people.profile_path}`}
                         alt={people.original_name}
-                        className="cast_image "
+                        className="cast_image rounded-xl"
                       />
                       <div className="px-2">
                         <h3 className="text-color-light-1 w-[220px]">
@@ -109,7 +118,7 @@ function TheaterInfo() {
                   <img
                     src={`https://image.tmdb.org/t/p/original${trailer.poster_path}`}
                     alt=""
-                    className="trailers_image"
+                    className="trailers_image rounded-md"
                   />
                   <div className="w-[180px] px-5">
                     <p className="text-color-light-1 px-2">{trailer.title}</p>
@@ -121,7 +130,7 @@ function TheaterInfo() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

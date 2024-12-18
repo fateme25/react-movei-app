@@ -15,7 +15,7 @@ function Home() {
         {/* The banner component goes here */}
         <Banner />
 
-        <main className="container mx-auto mb-52 mt-14">
+        <main className="mb-52 mt-14">
           <MovieList />
           <TheaterInfo/>
         </main>

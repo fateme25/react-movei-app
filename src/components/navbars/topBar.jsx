@@ -14,6 +14,7 @@ function TopBar({ home }) {
   const [scrollVal, setScrollVal] = useState(0);
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const { currentUser } = useAuth();
 
   //Determine the scroll value for conditional styling
   useEffect(() => {
@@ -30,45 +31,38 @@ function TopBar({ home }) {
     navigate(`/search?q=${encodeURIComponent(query)}`);
   };
 
-  const { currentUser } = useAuth();
-  // console.log(currentUser);
-
   return (
     <>
       <header
         className={`${
           home && scrollVal < 1 ? "bg-transparent" : "bg-slate-900"
-        } z-10 p-5 fixed w-full`}
+        } z-10 py-5 fixed w-full`}
       >
-        <div className="container mx-auto flex justify-between items-center space-between">
+        <div className="lg:container sm:w-full lg:mx-auto flex justify-between items-center ">
           <div className="brand flex">
             <div className="img_cont">
               <img src={CinemaFilmPlay} className="w-full" />
             </div>
-            <span className="text-white text-4xl">
+            <span className="text-white text-4xl hidden md:block">
               Film<span className="text-[#BE0C0C]">flix</span>
             </span>
           </div>
-
-          <div className="search flex-initial w-1/3 h-14 rounded-full  cursor-pointer border-2 border-[#b6b4b4]">
-            <div className="flex justify-between mx-6 mt-2 items-center text-slate-200 ">
-              <form action="" onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  placeholder="Type to search ..."
-                  className="bg-transparent outline-none border-none text-xl placeholder-gray-300"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                />
-              </form>
+          <form action="" onSubmit={handleSubmit}>
+            <label className=" input-bordered flex items-center  md:w-[28rem]  h-12 rounded-full cursor-pointer  border-2 border-[#b6b4b4] px-3 ml-4">
+              <input
+                type="text"
+                className="grow bg-transparent outline-none border-none  placeholder-gray-300"
+                placeholder="Type to search ..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
               <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </div>
-          </div>
-
+            </label>
+          </form>
           <div className="profile flex items-center gap-6 text-color-light-1 font-bold text-lg">
-            <div className="space-x-2">
+            <div className="space-x-2 sm:hidden lg:block">
               <FontAwesomeIcon icon={faSquarePlus} fontSize={25} />
-              <Link to="">WatchList</Link>
+              <Link to="/watchlist">WatchList</Link>
             </div>
             <div className="img_cont">
               {currentUser ? (
@@ -77,7 +71,7 @@ function TopBar({ home }) {
                     <div
                       tabIndex={0}
                       role="button"
-                      className="btn btn-ghost rounded-btn"
+                      className="btn btn-ghost rounded-btn px-1"
                     >
                       <FontAwesomeIcon icon={faUserCircle} fontSize={25} />
                       <p className="text-lg">
@@ -95,7 +89,7 @@ function TopBar({ home }) {
                         </small>
                       </li>
                       <li className="">
-                        <a>Your WatchList</a>
+                        <Link to="/watchlist">Your WatchList</Link>
                       </li>
                       <li className="border-b border-b-zinc-500">
                         <a href="">Your Rating</a>

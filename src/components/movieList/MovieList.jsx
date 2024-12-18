@@ -14,14 +14,14 @@ function MovieList() {
     return <Loader />;
   }
   return (
-    <>
+    <div className="md:container sm:w-[90%] mx-auto">
       <Heading>COMING SOON</Heading>
       <MovieSlider
         slidesPerView={5}
         spaceBetween={20}
         sliderClass="slider-fixed-size"
         showInfo={true}
-        moviesList={upcomingMovies.results}
+        moviesList={upcomingMovies?.results}
       />
 
       <Heading>TOP RATED</Heading>
@@ -29,9 +29,9 @@ function MovieList() {
         slidesPerView={7}
         spaceBetween={10}
         sliderClass="slider-variable-size"
-        moviesList={topRatedMovies.results}
+        moviesList={topRatedMovies?.results}
       />
-    </>
+    </div>
   );
 }
 

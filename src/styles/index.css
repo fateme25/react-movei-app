@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background-color: #171414;
-}
-
 
 .watch_button{
     background: linear-gradient(118deg, rgba(26, 6, 251, 0.7) 12%, rgba(125, 8, 154, 1) 22%, rgba(113, 7, 166, 0.8) 47%, rgba(252, 8, 81, 0.8) 64%, rgba(251, 10, 26, 0.8) 73%, rgba(236,141,30,0.88)91% );

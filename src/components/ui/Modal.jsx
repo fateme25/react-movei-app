@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import StarRating from "./StarRating";
 
 const Modal = ({ isOpen, onClose ,children}) => {
   const modalRef = useRef(null);

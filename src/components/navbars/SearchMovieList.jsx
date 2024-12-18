@@ -1,11 +1,12 @@
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { useSearchMovies } from "./useSearchMovies";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import Loader from "../ui/Loader";
+import TopBar from "./topBar";
+import Footer from "../ui/Footer"
 
 function SearchMovieList() {
   const [searchParams] = useSearchParams();
@@ -25,8 +26,10 @@ function SearchMovieList() {
   // );
 
   return (
-    <div className="container mx-auto mt-8 text-color-light-1">
-      <h2 className="text-3xl font-bold">
+    <>
+    <TopBar/>
+    <div className="md:container sm:w-full mx-auto  text-color-light-1">
+      <h2 className="text-3xl font-bold pt-28">
         Search Results for{" "}
         <span className="text-color-brand-1 font-bold">{query}</span> movies
       </h2>
@@ -55,7 +58,7 @@ function SearchMovieList() {
                 />
               </div>
               <div className="flex justify-between items-center pt-6">
-                <p className="text-xl md:text-2xl font-semibold">
+                <p className="text-xl md:text-2xl font-semibold ">
                   {movie.title}
                 </p>
                 <div className="flex items-center">
@@ -80,6 +83,8 @@ function SearchMovieList() {
           ))}
       </ul>
     </div>
+    <Footer/>
+    </>
   );
 }
 
