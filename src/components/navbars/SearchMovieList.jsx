@@ -29,7 +29,7 @@ function SearchMovieList() {
     <>
     <TopBar/>
     <div className="md:container sm:w-full mx-auto  text-color-light-1">
-      <h2 className="text-3xl font-bold pt-28">
+      <h2 className="text-2xl font-bold pt-28">
         Search Results for{" "}
         <span className="text-color-brand-1 font-bold">{query}</span> movies
       </h2>

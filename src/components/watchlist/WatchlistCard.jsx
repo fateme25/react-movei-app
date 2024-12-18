@@ -40,7 +40,7 @@ const WatchlistCard = ({ type, item }) => {
 
         {/* Text Section */}
         <div className="w-full">
-          <h2 className="text-base sm:text-lg md:text-xl font-bold truncate">
+          <h2 className="sm:text-lg md:text-2xl text-color-light-1 font-bold truncate">
             {item?.title || item?.name}
           </h2>
           <h3 className="text-sm sm:text-md font-bold text-color-brand-2 mt-2">

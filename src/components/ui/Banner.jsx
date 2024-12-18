@@ -29,7 +29,7 @@ function Banner() {
   return (
     <>
       {trendingMovies.length > 0 && (
-        <div className="banner h-screen relative -mb-10">
+        <div className="banner h-screen relative">
           {/* The background image and overlay */}
           <div className="absolute w-full h-full -z-50 ">
             <div className="overlay absolute w-full h-full top-0 left-0 "></div>
@@ -40,9 +40,9 @@ function Banner() {
           </div>
 
           {/* The movie infos */}
-          <div className="sm:w-[90%]  mx-auto z-30">
-            <div className="md:w-[35%] sm:w-[80%] overhead_info text-white inline-flex flex-col gap-0  mt-[18%]">
-              <h1 className="text-6xl font-bold text-color-brand-2 font-inter mt-10">
+          <div className="sm:w-[90%] mx-auto z-30">
+            <div className="md:w-[35%] sm:w-[80%] overhead_info text-white inline-flex flex-col gap-0 mt-36">
+              <h1 className="text-6xl font-bold text-color-brand-2 font-inter">
                 {trendingMovies[0].title}
               </h1>
               <div className="sub_info flex flex-col gap-5">
@@ -64,37 +64,24 @@ function Banner() {
 
                 <div className="rating mt-8">
                   <span>
-                    <span className="font-bold text-xl">
+                    <span className="font-bold text-lg">
                       {trendingMovies[0].vote_average.toFixed(1)}
                     </span>{" "}
                     / <span className="text-color-grey-3">10 </span>
                   </span>
                   <span>
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-[#FFFD54] ml-1"
-                    />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-[#FFFD54] ml-1"
-                    />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-[#FFFD54] ml-1"
-                    />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-[#FFFD54] ml-1"
-                    />
-                    <FontAwesomeIcon
-                      icon={faStar}
-                      className="text-[#FFFD54] ml-1"
-                    />
+                    {Array.from({ length: 5 }, (_, index) => (
+                      <FontAwesomeIcon
+                        key={index}
+                        icon={faStar}
+                        className="text-[#FFFD54] ml-1"
+                      />
+                    ))}
                   </span>
                 </div>
 
                 <div
-                  className="watch_button bg-gradient-to-r from-pink-500 to-orange-500 w-fit py-3 px-8 rounded-3xl cursor-pointer text-[18px] text-lg"
+                  className="watch_button bg-gradient-to-r from-pink-500 to-orange-500 w-fit py-[0.575rem] px-6 rounded-3xl cursor-pointer text-[18px]"
                   onClick={handleClick}
                 >
                   <span>Watch Trailer </span>

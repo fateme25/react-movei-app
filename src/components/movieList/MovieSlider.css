@@ -35,7 +35,7 @@
 
 .slider-fixed-size .movie-image {
   width: 295px;
-  height: 450px;
+  height: 320px;
   object-fit: cover;
   border-bottom: 4px solid theme(borderColor[color-brand-2]);
   margin-bottom: 1.4rem;
@@ -44,7 +44,7 @@
 
 .slider-variable-size .movie-image {
   object-fit: cover;
-  width: 190px;
+  /* width: 190px; */
 }
 
 .slider-variable-size .swiper-slide:nth-child(2n) {

@@ -41,9 +41,9 @@ function TopBar({ home }) {
         <div className="lg:container sm:w-full lg:mx-auto flex justify-between items-center ">
           <div className="brand flex">
             <div className="img_cont">
-              <img src={CinemaFilmPlay} className="w-full" />
+              <img src={CinemaFilmPlay} className="max-w-10" />
             </div>
-            <span className="text-white text-4xl hidden md:block">
+            <span className="text-white text-3xl hidden md:block">
               Film<span className="text-[#BE0C0C]">flix</span>
             </span>
           </div>
@@ -59,9 +59,9 @@ function TopBar({ home }) {
               <FontAwesomeIcon icon={faMagnifyingGlass} />
             </label>
           </form>
-          <div className="profile flex items-center gap-6 text-color-light-1 font-bold text-lg">
+          <div className="profile flex items-center gap-6 text-color-light-1 font-bold text-base">
             <div className="space-x-2 sm:hidden lg:block">
-              <FontAwesomeIcon icon={faSquarePlus} fontSize={25} />
+              <FontAwesomeIcon icon={faSquarePlus} fontSize={18} />
               <Link to="/watchlist">WatchList</Link>
             </div>
             <div className="img_cont">
@@ -73,14 +73,14 @@ function TopBar({ home }) {
                       role="button"
                       className="btn btn-ghost rounded-btn px-1"
                     >
-                      <FontAwesomeIcon icon={faUserCircle} fontSize={25} />
+                      <FontAwesomeIcon icon={faUserCircle} fontSize={18} />
                       <p className="text-lg">
                         {currentUser.email.substring(0, 6)}
                       </p>
                     </div>
                     <ul
                       tabIndex={0}
-                      className="menu dropdown-content bg-base-100 rounded-box z-[1] mt-4 w-52 px-2 leading-7 pt-4 shadow "
+                      className="menu dropdown-content bg-base-100 rounded-box z-[1] mt-4 w-52 px-2 leading-7 pt-4 shadow text-sm"
                     >
                       <li className="font-medium truncate border-b border-b-zinc-500">
                         {currentUser.email}

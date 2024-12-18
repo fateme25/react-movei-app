@@ -78,8 +78,8 @@ function MovieSlider({
                   )}
                 </span>
                 <div className="text-left">
-                  <h3 className="text-lg text-color-light-1">{movie.title}</h3>
-                  <span className="text-color-grey-2 text-sm font-medium">
+                  <h3 className="text-base text-color-light-1">{movie.title}</h3>
+                  <span className="text-color-grey-2 text-[0.70rem] font-medium">
                     {`${movie.release_date} ‧ ${movie.genre_ids
                       .slice(0, 2)
                       .map((id) => genreMovies[id])

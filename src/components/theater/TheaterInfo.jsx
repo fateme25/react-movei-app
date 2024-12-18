@@ -49,7 +49,7 @@ function TheaterInfo() {
 
       <div class="grid md:grid-cols-2 sm:grid-col-1 gap-10 py-10">
         <div className="sm:ml-5">
-          <p className="text-color-grey-1 font-light md:text-3xl sm:text-lg py-6">
+          <p className="text-color-grey-1 font-light md:text-2xl sm:text-lg py-6">
             {selectedMovieDetails?.original_title} - Official Trailer [HD]
           </p>
           <div className="relative w-full pt-[56.25%]">
@@ -65,8 +65,9 @@ function TheaterInfo() {
         </div>
         <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-10 ">
           <div className="">
-            <p className="text-color-light-1 font-bold text-[26px] tracking-wide">
-              SPOTLIGHT CASTS
+            <p className="text-color-light-1 font-bold text-xl tracking-wide uppercase ">
+              spotlight casts
+              </p>
               <Swiper
                 slidesPerView={3}
                 direction={"vertical"}
@@ -96,7 +97,6 @@ function TheaterInfo() {
                     </SwiperSlide>
                   ))}
               </Swiper>
-            </p>
           </div>
           <div>
             <FontAwesomeIcon icon={faClock} inverse />
@@ -118,7 +118,7 @@ function TheaterInfo() {
                   <img
                     src={`https://image.tmdb.org/t/p/original${trailer.poster_path}`}
                     alt=""
-                    className="trailers_image rounded-md"
+                    className="w-[130px] h-[60px] object-cover rounded-md ml-2"
                   />
                   <div className="w-[180px] px-5">
                     <p className="text-color-light-1 px-2">{trailer.title}</p>
