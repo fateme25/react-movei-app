@@ -4,5 +4,31 @@
 
 
 .watch_button{
-    background: linear-gradient(135deg, rgba(26, 6, 251, 0.8) 14%, rgba(125, 8, 154, 0.8) 32%, rgba(113, 7, 166, 0.8) 49%, rgba(252, 8, 81, 0.8) 58%, rgba(251, 10, 26, 0.8) 76%, #EC8D1E );
+    background: linear-gradient(118deg, rgba(26, 6, 251, 0.7) 12%, rgba(125, 8, 154, 1) 22%, rgba(113, 7, 166, 0.8) 47%, rgba(252, 8, 81, 0.8) 64%, rgba(251, 10, 26, 0.8) 73%, rgba(236,141,30,0.88)91% );
+}
+
+
+
+.banner{
+    /* background:  linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, rgba(15, 15, 15, 0.4) 20.83%, rgba(15, 15, 15, 0.7) 38.75%, #0f0f0f 63.33%);; */
+    background-image: linear-gradient(30deg, rgba(0, 0, 0, 0.90) 15.25%, rgba(0, 0, 0, 0.40) 64.5%);
+}
+
+
+.movie_loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    background-color: #171414;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.movie_loader img {
+    width: auto; /* Adjust as needed */
+    height: auto; /* Adjust as needed */
 }
